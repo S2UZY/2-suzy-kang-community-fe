@@ -2,6 +2,9 @@
 
 순수 바닐라 자바스크립트로 구현한 커뮤니티 웹 애플리케이션입니다.
 
+## 배포 링크
+[https://2-suzy-kang-community-fe.vercel.app](https://2-suzy-kang-community-fe.vercel.app)
+
 ## 주요 기능
 
 ### 인증
