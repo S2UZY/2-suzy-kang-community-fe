@@ -1,0 +1,23 @@
+:root {
+    --primary-color: #ACA0EB;
+    --secondary-color: #6c757d;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #F4F5F7;
+}
+
+.button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+} 
+
+* {
+    box-sizing: border-box;
+}
