@@ -170,13 +170,14 @@
 .login-link {
     height: 48px;
     background: none;
-    border: 1px solid #E5E5E5;
-    border-radius: 8px;
-    font-size: 16px;
+    border: none;
+    font-size: 14px;
     color: #666;
     cursor: pointer;
+   
 }
 
 .login-link:hover {
-    background: #F5F5F5;
+    text-decoration: underline;
+    color: #7F6AEE;
 } 
