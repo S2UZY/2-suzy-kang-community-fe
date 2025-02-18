@@ -5,6 +5,9 @@
 ## 배포 링크
 [https://2-suzy-kang-community-fe.vercel.app](https://2-suzy-kang-community-fe.vercel.app)
 
+## 화면 스크린샷
+![화면](https://github.com/user-attachments/assets/7d96d5fb-4612-447c-b862-c6a7a8765f37)
+
 ## 주요 기능
 
 ### 인증
