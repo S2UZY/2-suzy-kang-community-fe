@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <title>회원정보 수정</title>
     <link rel="stylesheet" href="/styles/common.css">
-    <link rel="stylesheet" href="edit-profile.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="/components/toast.css">
     <link rel="stylesheet" href="/components/modal.css">
 </head>
 <body>
-    <div id="navbar"></div>
+    <div id="nav-bar"></div>
     <div id="modal"></div>
     
     <main class="edit-profile-container">
         <h1 class="edit-profile-title">회원정보 수정</h1>
-        <form id="editProfileForm" class="edit-profile-form">
+        <form id="edit-profile-form" class="edit-profile-form">
             <div class="profile-upload">
                 <div class="profile-upload-title">프로필 사진<span class="required">*</span>
                     <div class="error-message" id="profile-error"></div>
@@ -39,22 +39,19 @@
 
             <div class="button-group">
                 <button type="submit" class="submit-button">수정완료</button>
-                <button type="button" id="deleteAccount" class="delete-button">회원탈퇴</button>
+                <button type="button" id="delete-account-button" class="delete-button">회원탈퇴</button>
             </div>
         </form>
     </main>
 
     <script type="module">
         import { initPage } from '/utils/loader.js';
-        import { loadProfile, handleProfileEdit, handleProfilePreview, handleDeleteAccount } from './edit-profile.js';
-    
+        import { initProfileEditPage } from '/features/auth/edit-profile/edit/view.js';
+        import { initDeleteAccount } from '/features/auth/edit-profile/delete/view.js';
         
         initPage();
-        loadProfile();
-        
-        document.getElementById('editProfileForm').addEventListener('submit', handleProfileEdit);
-        document.getElementById('profile').addEventListener('change', handleProfilePreview);
-        document.getElementById('deleteAccount').addEventListener('click', handleDeleteAccount);
+        initProfileEditPage();
+        initDeleteAccount();
     </script>
 </body>
 </html> 
