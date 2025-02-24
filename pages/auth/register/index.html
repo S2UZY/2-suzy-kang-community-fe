@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" href="/styles/common.css">
-    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="navbar"></div>
+    <div id="nav-bar"></div>
     
     <main class="register-container">
         <h1 class="register-title">회원가입</h1>
@@ -47,17 +47,16 @@
             </div>
 
             <button type="submit" class="register-button" disabled>회원가입</button>
-            <button type="button" onclick="location.href='login.html'" class="login-link">로그인하러 가기</button>
+            <button type="button" onclick="location.href='/pages/auth/login'" class="login-link">로그인하러 가기</button>
         </form>
     </main>
 
     <script type="module">
         import { initPage } from '/utils/loader.js';
-        import { handleRegister, handleProfilePreview } from './register.js';
+        import { initRegisterPage } from '/features/auth/register/view.js';
         
         initPage();
-        document.getElementById('register-form').addEventListener('submit', handleRegister);
-        document.getElementById('profile').addEventListener('change', handleProfilePreview);
+        initRegisterPage();
     </script>
 </body>
 </html> 
