@@ -5,7 +5,7 @@ export function updateNavbar() {
 
 export function handleLogout() {
     localStorage.removeItem('currentUser');
-    window.location.href = '/features/auth/login.html';
+    window.location.href = '/pages/auth/login';
 }
 
 function setNavBackButton() {
@@ -13,10 +13,10 @@ function setNavBackButton() {
     
     const hideBackButtonPaths = [
         '/index.html',
-        '/features/auth/login.html',
-        '/features/posts/list.html',
-        '/features/auth/edit-profile.html',
-        '/features/auth/change-password.html'
+        '/pages/auth/login/',
+        '/pages/posts/list/',
+        '/pages/auth/edit-profile/',
+        '/pages/auth/change-password/'
     ];
     
     if (hideBackButtonPaths.includes(window.location.pathname)) {
