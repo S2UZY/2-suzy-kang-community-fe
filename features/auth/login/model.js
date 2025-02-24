@@ -21,10 +21,10 @@ async function loginUserLocal(formData) {
     const user = users.find(u => u.email === email && u.password === password);
 
     if (user) {
-        localStorage.setItem('currentUser', user.id);
+        localStorage.setItem('currentUser', JSON.stringify(user));
         return { 
             success: true, 
-            data: { user_id: user.id } 
+            data: { user: JSON.stringify(user) } 
         };
     }
 
