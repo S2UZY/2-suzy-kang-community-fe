@@ -1,5 +1,5 @@
 import { showToast } from '/components/toast.js';
-import { validateNickname } from '/features/auth/utils/validation.js';
+import { validateNickname, validateProfileImageSize } from '/features/auth/utils/validation.js';
 import { updateProfile } from '/features/auth/edit-profile/edit/model.js';
 
 export function initProfileEditPage() {
@@ -71,6 +71,12 @@ function handleProfilePreview(event) {
     const preview = document.getElementById('profile-preview');
     
     if (file) {
+        const sizeError = validateProfileImageSize(file);
+        if (sizeError) {
+            showError('profile-error', sizeError);
+            return;
+        }
+
         const reader = new FileReader();
         reader.onload = function(e) {
             preview.innerHTML = `<img src="${e.target.result}" alt="프로필 미리보기">`;

@@ -31,4 +31,12 @@ export function validateNickname(nickname) {
         return '*닉네임은 최대 10자 까지 작성 가능합니다.';
     }
     return '';
+}
+
+export function validateProfileImageSize(file) {
+    const maxSizeInBytes = 1 * 1024 * 1024;
+    if (file.size > maxSizeInBytes) {
+        return '*프로필 사진은 1MB 이하로 업로드해주세요.';
+    }
+    return '';
 } 

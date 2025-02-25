@@ -1,4 +1,4 @@
-import { validateEmail, validatePassword, validateNickname } from '/features/auth/utils/validation.js';
+import { validateEmail, validatePassword, validateNickname, validateProfileImageSize } from '/features/auth/utils/validation.js';
 import { registerUser } from '/features/auth/register/model.js';
 
 export function initRegisterPage() {
@@ -71,6 +71,12 @@ function handleProfilePreview(event) {
     const profilePlus = document.getElementById('profile-plus');
     
     if (file) {
+        const sizeError = validateProfileImageSize(file);
+        if (sizeError) {
+            showError('profile-error', sizeError);
+            return;
+        }
+
         const reader = new FileReader();
         reader.onload = function(e) {
             preview.innerHTML = `<img src="${e.target.result}" alt="프로필 미리보기">`;
