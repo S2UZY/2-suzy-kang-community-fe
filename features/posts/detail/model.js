@@ -44,52 +44,6 @@ async function getPostDetailLocal(postId) {
     }
 }
 
-async function createCommentLocal(postId, content) {
-    try {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (!currentUser) {
-            return {
-                success: false,
-                error: '로그인이 필요합니다.'
-            };
-        }
-
-        const posts = JSON.parse(localStorage.getItem('posts') || '[]');
-        const postIndex = posts.findIndex(p => p.id == postId);
-
-        if (postIndex === -1) {
-            return {
-                success: false,
-                error: '게시글을 찾을 수 없습니다.'
-            };
-        }
-
-        const newComment = {
-            id: Date.now().toString(),
-            authorId: currentUser.id,
-            content,
-            date: new Date().toISOString()
-        };
-
-        if (!posts[postIndex].comments) {
-            posts[postIndex].comments = [];
-        }
-
-        posts[postIndex].comments.unshift(newComment);
-        localStorage.setItem('posts', JSON.stringify(posts));
-
-        return {
-            success: true,
-            data: { comment: newComment }
-        };
-    } catch (error) {
-        return {
-            success: false,
-            error: '댓글 작성 중 오류가 발생했습니다.'
-        };
-    }
-}
-
 async function toggleLikeLocal(postId) {
     try {
         const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -134,6 +88,5 @@ async function toggleLikeLocal(postId) {
 
 export const postDetailModel = {
     getPostDetail: async (postId) => await getPostDetailLocal(postId),
-    createComment: async (postId, content) => await createCommentLocal(postId, content),
     toggleLike: async (postId) => await toggleLikeLocal(postId)
 };

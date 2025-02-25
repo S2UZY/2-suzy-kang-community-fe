@@ -4,6 +4,7 @@ import { showToast } from '/components/toast.js';
 export function initDetailPage() {
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get('id');
+
     loadPostDetail(postId);
     setupEventListeners(postId);
 }
@@ -17,9 +18,8 @@ async function loadPostDetail(postId) {
         return;
     }
 
-    const post  = result.data;
+    const post = result.data;
     renderPostDetail(post);
-    renderComments(post.comments);
     updateStats(post);
 }
 
@@ -44,31 +44,9 @@ function renderPostDetail(post) {
     likeButton.style.background = post.isLiked ? '#ACA0EB' : '#D9D9D9';
 }
 
-function renderComments(comments = []) {
-    const commentsList = document.getElementById('comments-list');
-    commentsList.innerHTML = comments.map(comment => createCommentElement(comment)).join('');
-}
-
 function setupEventListeners(postId) {
-    setupCommentForm(postId);
     setupLikeButton(postId);
     setupActionButtons(postId);
-}
-
-function setupCommentForm(postId) {
-    const commentForm = document.getElementById('comment-form');
-    commentForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const content = e.target.querySelector('textarea').value;
-        const result = await postDetailModel.createComment(postId, content);
-
-        if (result.success) {
-            loadPostDetail(postId);
-            e.target.reset();
-        } else {
-            showToast(result.error);
-        }
-    });
 }
 
 function setupLikeButton(postId) {
@@ -92,7 +70,6 @@ function setupActionButtons(postId) {
     });
 }
 
-// 유틸리티 함수들
 function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleString('ko-KR', {
@@ -113,18 +90,4 @@ function formatNumber(num) {
 function updateStats(post) {
     document.getElementById('like-count').textContent = formatNumber(post.likes || 0);
     document.getElementById('view-count').textContent = formatNumber(post.views || 0);
-    document.getElementById('comment-count').textContent = formatNumber(post.comments?.length || 0);
-}
-
-function createCommentElement(comment) {
-    return `
-        <div class="comment">
-            <div class="comment-header">
-                <img src="${comment.authorProfile}" alt="댓글 작성자 프로필" class="comment-author-image">
-                <span class="comment-author">${comment.author}</span>
-                <span class="comment-date">${formatDate(comment.createdAt)}</span>
-            </div>
-            <div class="comment-content">${comment.content}</div>
-        </div>
-    `;
 }
