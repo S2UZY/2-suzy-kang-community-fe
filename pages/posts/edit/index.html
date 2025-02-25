@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>게시글 수정</title>
     <link rel="stylesheet" href="/styles/common.css">
-    <link rel="stylesheet" href="write.css">
-    <link rel="stylesheet" href="edit.css">
+    <link rel="stylesheet" href="../write/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="navbar"></div>
@@ -49,13 +49,10 @@
 
     <script type="module">
         import { initPage } from '/utils/loader.js';
-        import { loadPost, handleEdit, handleImagePreview, handleImageRemove } from './edit.js';
+        import { initEditPage } from '/features/posts/edit/view.js';
         
         initPage();
-        loadPost();
-        document.getElementById('editForm').addEventListener('submit', handleEdit);
-        document.getElementById('image').addEventListener('change', handleImagePreview);
-        document.querySelector('.remove-image-button').addEventListener('click', handleImageRemove);
+        initEditPage();
     </script>
 </body>
 </html> 
