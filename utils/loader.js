@@ -1,5 +1,4 @@
-import { updateNavbar } from '/components/navbar.js';
-import { handleLogout } from '/components/navbar.js';
+import { updateNavbar, handleLogout } from '/components/navbar.js';
 
 export function loadComponent(id, path) {
     const element = document.getElementById(id);
@@ -27,21 +26,20 @@ export function loadComponent(id, path) {
 
 function checkAuthAndRedirect() {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    const publicPaths = ['/index.html', '/features/auth/login.html', '/features/auth/register.html'];
+    const publicPaths = ['/index.html', '/pages/auth/login/', '/pages/auth/register/'];
     const currentPath = window.location.pathname;
 
     if (currentUser) {
-        // 로그인된 상태에서 로그인/회원가입 페이지 접근 시 목록 페이지로 리다이렉트
-        if (publicPaths.includes(currentPath)) {
-            window.location.href = '/features/posts/list.html';
+        if (publicPaths.some(path => currentPath.includes(path))) {
+            window.location.href = '/pages/posts/list.html';
         }
     } else {
-        // 로그인되지 않은 상태에서 보호된 페이지 접근 시 로그인 페이지로 리다이렉트
-        if (!publicPaths.includes(currentPath)) {
-            window.location.href = '/features/auth/login.html';
+        if (!publicPaths.some(path => currentPath.includes(path))) {
+            window.location.href = '/pages/auth/login/index.html';
         }
     }
 }
+
 
 export function initPage() {
     document.addEventListener('DOMContentLoaded', () => {
