@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>게시글 작성</title>
     <link rel="stylesheet" href="/styles/common.css">
-    <link rel="stylesheet" href="write.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="navbar"></div>
@@ -12,7 +12,7 @@
     <main>
         <div class="write-container">
             <h1 class="write-title">게시글 작성</h1>
-            <form id="writeForm">
+            <form id="write-form">
                 <div class="input-group">
                     <label for="title">제목*</label>
                     <input type="text" id="title" placeholder="제목을 입력해주세요 (최대 26글자)" maxlength="26">
@@ -31,6 +31,7 @@
                             <div class="upload-text">파일을 선택해주세요.</div>
                             <input type="file" id="image" accept="image/*">
                         </div>
+                        <div class="error-message" id="image-error"></div>
                     </div>
                 </div>
                 <div class="button-group">
@@ -42,11 +43,9 @@
 
     <script type="module">
         import { initPage } from '/utils/loader.js';
-        import { handleWrite, handleImagePreview } from './write.js';
-        
+        import { initWritePage } from '/features/posts/write/view.js';
         initPage();
-        document.getElementById('writeForm').addEventListener('submit', handleWrite);
-        document.getElementById('image').addEventListener('change', handleImagePreview);
+        initWritePage();
     </script>
 </body>
 </html> 
