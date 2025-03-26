@@ -31,11 +31,11 @@ function checkAuthAndRedirect() {
 
     if (currentUser) {
         if (publicPaths.some(path => currentPath.includes(path))) {
-            window.location.href = '/pages/posts/list.html';
+            window.location.href = '/pages/posts/list';
         }
     } else {
         if (!publicPaths.some(path => currentPath.includes(path))) {
-            window.location.href = '/pages/auth/login/index.html';
+            window.location.href = '/pages/auth/login';
         }
     }
 }
