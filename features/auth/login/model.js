@@ -2,13 +2,13 @@ import { apiClient } from '/lib/api.js';
 
 // API 로그인
 async function loginUserApi(formData) {
-    const result = await apiClient('/api/login', {
+    const result = await apiClient('/sessions', {
         method: 'POST',
         body: JSON.stringify(formData)
     });
 
     if (result.success) {
-        localStorage.setItem('currentUser', JSON.stringify(result.data.user));
+        localStorage.setItem('currentUser', JSON.stringify(result.data.data));
     }
 
     return result;
@@ -36,5 +36,5 @@ async function loginUserLocal(formData) {
 
 // 통합 로그인 함수 - 현재는 로컬 스토리지 로그인만 사용
 export async function loginUser(formData) {
-    return await loginUserLocal(formData)
+    return await loginUserApi(formData)
 }
