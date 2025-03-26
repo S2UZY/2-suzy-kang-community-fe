@@ -2,7 +2,7 @@ import { apiClient } from '/lib/api.js';
 
 // API 회원가입
 async function registerUserApi(formData) {
-    const result = await apiClient('/api/users', {
+    const result = await apiClient('/users', {
         method: 'POST',
         body: JSON.stringify(formData)
     });
@@ -10,7 +10,7 @@ async function registerUserApi(formData) {
     if (result.success) {
         return result;
     }
-
+    
     return result;
 }
 
@@ -62,5 +62,5 @@ async function registerUserLocal(formData) {
 
 // 통합 회원가입 함수 - 현재는 로컬 스토리지 회원가입만 사용
 export async function registerUser(formData) {
-    return await registerUserLocal(formData);
+    return await registerUserApi(formData);
 }
