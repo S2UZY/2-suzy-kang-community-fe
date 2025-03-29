@@ -2,11 +2,23 @@ import { apiClient } from '/lib/api.js';
 
 // API 게시글 목록 조회
 async function getPostsApi() {
-    const result = await apiClient('/api/posts', {
+    const result = await apiClient('/posts', {
         method: 'GET'
     });
 
-    return result;
+    console.log(result);
+
+    const posts = result.data.map(post => ({
+        ...post,
+        author: post.nickname,
+        authorProfile: post.profile,
+        createdAt: post.date
+    }));
+
+    return {
+        success: result.success,
+        data: posts
+    };
 }
 
 // 로컬 스토리지 게시글 목록 조회
@@ -21,7 +33,8 @@ async function getPostsLocal() {
             const author = users.find(user => user.id === post.authorId);
             return {
                 ...post,
-                authorProfile: author.profile 
+                authorProfile: author.profile ,
+                commentLength: post.comments.length
             };
         });
 
@@ -41,5 +54,5 @@ async function getPostsLocal() {
 
 // 통합 게시글 목록 조회 함수 - 현재는 로컬 스토리지만 사용
 export async function getPosts() {
-    return await getPostsLocal();
+    return await getPostsApi();
 }

@@ -45,7 +45,7 @@ function createPostElement(post) {
                     </span>
                     <span class="stat-item">
                         <span>댓글</span>
-                        <span>${post.comments?.length || 0}</span>
+                        <span>${post.commentLength || 0}</span>
                     </span>
                     <span class="stat-item">
                         <span>조회</span>
