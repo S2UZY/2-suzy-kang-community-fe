@@ -1,11 +1,15 @@
+import { logoutUser } from '/features/auth/logout/model.js';
+
 export function updateNavbar() {
     setNavBackButton();
     setProfileMenu();
 }
 
-export function handleLogout() {
-    localStorage.removeItem('currentUser');
-    window.location.href = '/pages/auth/login';
+export async function handleLogout() {
+    const result = await logoutUser();
+    if (result.success) {
+        window.location.href = '/pages/auth/login';
+    }
 }
 
 function setNavBackButton() {
