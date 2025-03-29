@@ -1,22 +1,37 @@
+import { apiClient } from '/lib/api.js';
+
 // API 댓글 작성
 async function createCommentApi(postId, content) {
-    const result = await apiClient(`/api/posts/${postId}/comments`, {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const result = await apiClient(`/posts/${postId}/comments`, {
         method: 'POST',
-        body: JSON.stringify({ content })
+        body: JSON.stringify({ content, userId: currentUser.userId })
     });
     return result;
 }
 
+// API 댓글 목록 조회
+async function getCommentsApi(postId) {
+    const result = await apiClient(`/posts/${postId}/comments`, {
+        method: 'GET'
+    });
+    
+    console.log("댓글 데이터", result);
+    return result;
+}
+
+// API 댓글 수정
 async function updateCommentApi(postId, commentId, content) {
-    const result = await apiClient(`/api/posts/${postId}/comments/${commentId}`, {
-        method: 'PUT',
+    const result = await apiClient(`/posts/${postId}/comments/${commentId}`, {
+        method: 'PATCH',
         body: JSON.stringify({ content })
     });
     return result;
 }
 
+// API 댓글 삭제
 async function deleteCommentApi(postId, commentId) {
-    const result = await apiClient(`/api/posts/${postId}/comments/${commentId}`, {
+    const result = await apiClient(`/posts/${postId}/comments/${commentId}`, {
         method: 'DELETE'
     });
     return result;
@@ -214,7 +229,8 @@ async function deleteCommentLocal(postId, commentId) {
 }
 
 export const commentModel = {
-    createComment: async (postId, content) => await createCommentLocal(postId, content),
-    updateComment: async (postId, commentId, content) => await updateCommentLocal(postId, commentId, content),
-    deleteComment: async (postId, commentId) => await deleteCommentLocal(postId, commentId)
-}; 
+    createComment: async (postId, content) => await createCommentApi(postId, content),
+    getComments: async (postId) => await getCommentsApi(postId),
+    updateComment: async (postId, commentId, content) => await updateCommentApi(postId, commentId, content),
+    deleteComment: async (postId, commentId) => await deleteCommentApi(postId, commentId),
+};
