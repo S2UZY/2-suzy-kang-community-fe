@@ -23,7 +23,7 @@ function setupLoginSubmit() {
             window.location.href = '/pages/posts/list';
         } else {
 
-            const errorElement = document.getElementById('login-error');
+            const errorElement = document.getElementById('password-error');
             if (errorElement) {
                 errorElement.textContent = result.error;
             }

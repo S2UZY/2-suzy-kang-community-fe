@@ -8,7 +8,7 @@ async function loginUserApi(formData) {
     });
 
     if (result.success) {
-        localStorage.setItem('currentUser', JSON.stringify(result.data.data));
+        localStorage.setItem('currentUser', JSON.stringify(result.data));
     }
 
     return result;
