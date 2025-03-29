@@ -2,7 +2,7 @@ import { apiClient } from '/lib/api.js';
 
 // API 게시글 수정
 async function editPostApi(postId, formData) {
-    const result = await apiClient(`/api/posts/${postId}`, {
+    const result = await apiClient(`/posts/${postId}`, {
         method: 'PATCH',
         body: JSON.stringify(formData)
     });
@@ -87,7 +87,22 @@ async function getPostLocal(postId) {
     }
 }
 
+async function getPostApi(postId) {
+    const result = await apiClient(`/posts/${postId}`, {
+        method: 'GET'
+    });
+
+    if (result.success) {
+        return {
+            success: true,
+            data: { post: result.data }
+        };
+    }
+
+    return result;
+}
+
 export const postEditModel = {
-    editPost: async (postId, formData) => await editPostLocal(postId, formData),
-    getPost: async (postId) => await getPostLocal(postId)
+    editPost: async (postId, formData) => await editPostApi(postId, formData),
+    getPost: async (postId) => await getPostApi(postId)
 };
