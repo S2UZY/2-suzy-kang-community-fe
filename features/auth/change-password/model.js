@@ -2,16 +2,13 @@ import { apiClient } from '/lib/api.js';
 
 // API 비밀번호 변경
 async function changePasswordApi(formData) {
-    const result = await apiClient('/api/users/password', {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const result = await apiClient('/users/' + currentUser.userId + '/password', {
         method: 'PATCH',
         body: JSON.stringify({
-            newPassword: formData.newPassword
+            password: formData.newPassword
         })
     });
-
-    if (result.success) {
-        localStorage.setItem('currentUser', JSON.stringify(result.data.user));
-    }
 
     return result;
 }
@@ -65,5 +62,5 @@ async function changePasswordLocal(formData) {
 
 // 통합 비밀번호 변경 함수 - 현재는 로컬 스토리지만 사용
 export async function changePassword(formData) {
-    return await changePasswordLocal(formData);
+    return await changePasswordApi(formData);
 }
