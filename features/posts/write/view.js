@@ -14,10 +14,13 @@ function setupWriteSubmit() {
     writeForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
+        let image = document.getElementById('image').files[0];
+        image = await convertImageToBase64(image);
+
         const formData = {
             title: document.getElementById('title').value,
             content: document.getElementById('content').value,
-            image: document.getElementById('image').files[0]
+            image: image
         };
 
         const result = await writePost(formData);
@@ -107,4 +110,15 @@ function validateField(fieldName, validationFn) {
     if (errorElement) {
         errorElement.textContent = errorMessage;
     }
+}
+
+async function convertImageToBase64(file) {
+    if (!file) return '';
+    
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+        reader.readAsDataURL(file);
+    });
 }

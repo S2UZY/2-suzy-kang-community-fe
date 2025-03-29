@@ -2,10 +2,21 @@ import { apiClient } from '/lib/api.js';
 
 // API 게시글 작성
 async function writePostApi(formData) {
-    const result = await apiClient('/api/posts', {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    const newPost = {
+        title: formData.title,
+        content: formData.content,
+        image: formData.image,
+        authorId: currentUser.userId
+    }
+
+    const result = await apiClient('/posts', {
         method: 'POST',
-        body: JSON.stringify(formData)
+        body: JSON.stringify(newPost)
     });
+
+    console.log(result);
 
     return result;
 }
@@ -55,5 +66,5 @@ async function writePostLocal(formData) {
 
 // 통합 게시글 작성 함수 - 현재는 로컬 스토리지만 사용
 export async function writePost(formData) {
-    return await writePostLocal(formData);
+    return await writePostApi(formData);
 }
