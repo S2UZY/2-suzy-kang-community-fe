@@ -2,9 +2,14 @@ import { apiClient } from '/lib/api.js';
 
 // API 프로필 수정
 async function updateProfileApi(formData) {
-    const result = await apiClient('/api/users/' + formData.id, {
+    const data = {
+        nickname: formData.nickname,
+        profile: formData.profile
+    }
+
+    const result = await apiClient('/users/' + formData.userId, {
         method: 'PATCH', 
-        body: JSON.stringify(formData)
+        body: JSON.stringify(data)
     });
 
     if (result.success) {
@@ -57,5 +62,5 @@ async function updateProfileLocal(formData) {
 
 // 통합 프로필 수정 함수 - 현재는 로컬 스토리지만 사용
 export async function updateProfile(formData) {
-    return await updateProfileLocal(formData);
+    return await updateProfileApi(formData);
 }

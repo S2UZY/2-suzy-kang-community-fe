@@ -36,11 +36,13 @@ function setupFormValidation() {
 
 function setupProfileEditSubmit() {
     const editForm = document.getElementById('edit-profile-form');
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     
     editForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const formData = {
+            userId: currentUser.userId,
             nickname: document.getElementById('nickname').value,
             profile: document.getElementById('profile-preview').querySelector('img')?.src
         };
