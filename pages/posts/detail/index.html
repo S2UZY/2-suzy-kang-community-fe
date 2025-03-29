@@ -53,11 +53,14 @@
             <div class="comment-form-container">
                 <form id="comment-form" class="comment-form">
                     <textarea placeholder="댓글을 남겨주세요!" required></textarea>
-                    <button type="submit">댓글 작성</button>
+                    <div class="comment-form-buttons">
+                        <button type="submit">댓글 작성</button>
+                        <button type="button" class="cancel-edit-btn">취소</button>
+                    </div>
                 </form>
             </div>
 
-            <div id="comments-list" class="comments-list">
+            <div id="comment-list" class="comment-list">
             </div>
         </section>
     </main>
