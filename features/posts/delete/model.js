@@ -2,7 +2,7 @@ import { apiClient } from '/lib/api.js';
 
 // API 게시글 삭제
 async function deletePostApi(postId) {
-    const result = await apiClient(`/api/posts/${postId}`, {
+    const result = await apiClient(`/posts/${postId}`, {
         method: 'DELETE'
     });
     return result;
@@ -55,5 +55,5 @@ async function deletePostLocal(postId) {
 
 // 통합 게시글 삭제 함수 - 현재는 로컬 스토리지만 사용
 export const postDeleteModel = {
-    deletePost: async (postId) => await deletePostLocal(postId)
+    deletePost: async (postId) => await deletePostApi(postId)
 };
