@@ -1,8 +1,9 @@
 import { apiClient } from '/lib/api.js';
 
 // API 계정 삭제
-async function deleteAccountApi(user_id) {
-    const result = await apiClient('/api/users/' + user_id, {
+async function deleteAccountApi() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const result = await apiClient('/users/' + currentUser.userId, {
         method: 'DELETE'
     });
 
@@ -47,5 +48,5 @@ async function deleteAccountLocal() {
 
 // 통합 계정 삭제 함수 - 현재는 로컬 스토리지만 사용
 export async function deleteAccount() {
-    return await deleteAccountLocal();
+    return await deleteAccountApi();
 }
