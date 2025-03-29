@@ -1,10 +1,17 @@
 import { postDetailModel } from './model.js';
+import { initComments } from '../comment/view.js';
 import { showToast } from '/components/toast.js';
 
 export function initDetailPage() {
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get('id');
-
+    
+    if (!postId) {
+        console.error('게시글 ID가 없습니다.');
+        window.location.href = '/pages/posts/list';
+        return;
+    }
+    
     loadPostDetail(postId);
     setupEventListeners(postId);
 }
@@ -29,6 +36,7 @@ function renderPostDetail(post) {
     document.getElementById('post-author-image').src = post.authorProfile;
     document.getElementById('post-date').textContent = formatDate(post.createdAt);
     document.getElementById('post-content').textContent = post.content;
+    document.getElementById('comment-count').textContent = post.commentLength;
 
     if (post.image) {
         document.getElementById('post-image').innerHTML = `
@@ -42,6 +50,8 @@ function renderPostDetail(post) {
     const likeButton = document.querySelector('.like-button');
     likeButton.classList.toggle('active', post.isLiked);
     likeButton.style.background = post.isLiked ? '#ACA0EB' : '#D9D9D9';
+
+    initComments();
 }
 
 function setupEventListeners(postId) {

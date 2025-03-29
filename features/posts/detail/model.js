@@ -2,8 +2,35 @@ import { apiClient } from '/lib/api.js';
 
 // API 게시글 상세 조회
 async function getPostDetailApi(postId) {
-    const result = await apiClient(`/api/posts/${postId}`, {
+    const result = await apiClient(`/posts/${postId}`, {
         method: 'GET'
+    });
+
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+    console.log(result);
+    if (result.success) {
+        return {
+            success: true,
+            data: {
+                ...result.data,
+                authorProfile: result.data.profile,
+                isAuthor: currentUser && currentUser.userId === result.data.authorId,
+                isLiked: result.data.likedBy?.includes(currentUser?.userId),
+                commentLength: result.data.comments?.length || 0,
+                author: result.data.nickname,
+                createdAt: result.data.date
+            }
+        };
+    } 
+
+    return result;
+}
+
+async function toggleLikeApi(postId) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const result = await apiClient(`/posts/${postId}/likes?userId=${currentUser.userId}`, {
+        method: 'POST',
     });
     return result;
 }
@@ -87,6 +114,6 @@ async function toggleLikeLocal(postId) {
 }
 
 export const postDetailModel = {
-    getPostDetail: async (postId) => await getPostDetailLocal(postId),
-    toggleLike: async (postId) => await toggleLikeLocal(postId)
+    getPostDetail: async (postId) => await getPostDetailApi(postId),
+    toggleLike: async (postId) => await toggleLikeApi(postId)
 };
