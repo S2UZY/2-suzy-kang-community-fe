@@ -16,8 +16,6 @@ async function writePostApi(formData) {
         body: JSON.stringify(newPost)
     });
 
-    console.log(result);
-
     return result;
 }
 

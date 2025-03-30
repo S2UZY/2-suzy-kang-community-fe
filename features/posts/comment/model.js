@@ -16,7 +16,6 @@ async function getCommentsApi(postId) {
         method: 'GET'
     });
     
-    console.log("댓글 데이터", result);
     return result;
 }
 

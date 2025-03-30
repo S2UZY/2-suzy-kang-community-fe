@@ -8,7 +8,6 @@ async function getPostDetailApi(postId) {
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    console.log(result);
     if (result.success) {
         return {
             success: true,

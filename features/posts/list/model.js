@@ -6,8 +6,6 @@ async function getPostsApi() {
         method: 'GET'
     });
 
-    console.log(result);
-
     const posts = result.data.map(post => ({
         ...post,
         author: post.nickname,
