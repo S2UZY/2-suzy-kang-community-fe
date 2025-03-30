@@ -1,11 +1,15 @@
+import { logoutUser } from '/features/auth/logout/model.js';
+
 export function updateNavbar() {
     setNavBackButton();
     setProfileMenu();
 }
 
-export function handleLogout() {
-    localStorage.removeItem('currentUser');
-    window.location.href = '/features/auth/login.html';
+export async function handleLogout() {
+    const result = await logoutUser();
+    if (result.success) {
+        window.location.href = '/pages/auth/login';
+    }
 }
 
 function setNavBackButton() {
@@ -13,10 +17,10 @@ function setNavBackButton() {
     
     const hideBackButtonPaths = [
         '/index.html',
-        '/features/auth/login.html',
-        '/features/posts/list.html',
-        '/features/auth/edit-profile.html',
-        '/features/auth/change-password.html'
+        '/pages/auth/login/',
+        '/pages/posts/list/',
+        '/pages/auth/edit-profile/',
+        '/pages/auth/change-password/'
     ];
     
     if (hideBackButtonPaths.includes(window.location.pathname)) {
